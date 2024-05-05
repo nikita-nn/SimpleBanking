@@ -2,7 +2,7 @@ import { Button, Card, Layout, Typography } from "antd";
 import styled from "styled-components";
 
 const StyledMainLayout = styled(Layout)`
-  width: 100rem;
+  width: 75%;
   margin: 20px auto;
   padding: 3rem;
   border-radius: 1rem;
@@ -41,10 +41,12 @@ const AccountStyles = styled.div`
 `;
 
 const LoginCard = styled(Card)`
-  width: 50rem;
+  width: 50%;
   padding: 3rem;
-  padding-right: 1.5rem;
   border-radius: 2.5rem;
+  position: relative;
+  top: 25%;
+  left: 25%;
 `;
 
 export {
