@@ -1,4 +1,4 @@
-import { Card, List } from "antd";
+import { Card, Flex, List } from "antd";
 import { DownCircleOutlined, UpCircleOutlined } from "@ant-design/icons";
 import { EditableText, TransactionStyles } from "../styles/renderComponents.ts";
 
@@ -134,24 +134,26 @@ const transactions = [
 export const TransactionHistory = () => {
   return (
     <Card style={{ padding: "0 0.5rem 0.5rem 0.5rem" }}>
-      <EditableText size={2} italic>
-        Transaction history
-      </EditableText>
-      <List
-        itemLayout="horizontal"
-        dataSource={transactions}
-        renderItem={(item) => (
-          <List.Item>
-            <Transaction
-              id={item.id}
-              isOut={item.out}
-              amount={item.amount}
-              to={item.to}
-              from={item.from}
-            />
-          </List.Item>
-        )}
-      />
+      <Flex vertical gap={"middle"}>
+        <EditableText size={2} italic>
+          Transaction history
+        </EditableText>
+        <List
+          itemLayout="horizontal"
+          dataSource={transactions}
+          renderItem={(item) => (
+            <List.Item>
+              <Transaction
+                id={item.id}
+                isOut={item.out}
+                amount={item.amount}
+                to={item.to}
+                from={item.from}
+              />
+            </List.Item>
+          )}
+        />
+      </Flex>
     </Card>
   );
 };

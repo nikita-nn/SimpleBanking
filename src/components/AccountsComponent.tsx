@@ -43,7 +43,7 @@ const Account = ({
         </EditableText>
       </Flex>
       <EditableText size={1.25} strong>
-        $ {balance}
+        {balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} $
       </EditableText>
     </AccountStyles>
   );

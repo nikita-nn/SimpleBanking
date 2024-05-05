@@ -31,12 +31,12 @@ const AccountStyles = styled.div`
   height: 4.25rem;
   border-radius: 0.25rem 0.5rem 0.5rem 0.25rem;
   border: 0.1rem solid #d9d9d9;
-  border-left: 0.5rem solid #1677ff;
+  border-left: 0.35rem solid #1677ff;
   transition: background-color 0.3s;
-  padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+  padding: 0.25rem 0.25rem 0.25rem 0.7rem;
 
   &:hover {
-    background-color: rgba(225, 225, 225, 0.9);
+    background-color: rgba(225, 225, 225, 0.5);
   }
 `;
 export {
