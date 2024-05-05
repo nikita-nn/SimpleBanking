@@ -13,7 +13,7 @@ export const BalanceCard = ({ usdBalance }: { usdBalance: number }) => {
           {usdBalance} $
         </Typography.Text>
         <Segmented
-          options={["USD", "RUB", "EUR", "AUD", "BTC", "ETH"]}
+          options={["USD", "RUB", "EUR", "AUD", "BTC", "ETH", "ARS"]}
           onChange={(value) => console.log(value)}
         />
         <Flex justify={"space-between"}>

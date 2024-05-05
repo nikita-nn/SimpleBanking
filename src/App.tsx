@@ -1,28 +1,25 @@
-import { BalanceCard } from "./components/BalanceCard.tsx";
-import { Col, Layout, Row } from "antd";
+import { Layout } from "antd";
 import { StyledMainLayout } from "./styles/renderComponents.ts";
-import { TransactionHistory } from "./components/TransactionHistory.tsx";
-import { AccountsComponent } from "./components/AccountsComponent.tsx";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import Login from "./views/Login.tsx";
+import ClientAreaView from "./views/ClientAreaView.tsx";
 
 const App = () => {
-  return (
-    <StyledMainLayout>
-      <Layout.Content>
-        <Row gutter={16}>
-          <Col
-            span={8}
-            style={{ display: "flex", gap: "1rem", flexDirection: "column" }}
-          >
-            <BalanceCard usdBalance={50} />
-            <AccountsComponent />
-          </Col>
-          <Col span={16}>
-            <TransactionHistory />
-          </Col>
-        </Row>
-      </Layout.Content>
-    </StyledMainLayout>
-  );
+  const router = createBrowserRouter([
+    { path: "/login", element: <Login /> },
+    {
+      path: "/",
+      element: (
+        <StyledMainLayout>
+          <Layout.Content>
+            <Outlet />
+          </Layout.Content>
+        </StyledMainLayout>
+      ),
+      children: [{ path: "/clientarea", element: <ClientAreaView /> }],
+    },
+  ]);
+  return <RouterProvider router={router} />;
 };
 
 export default App;

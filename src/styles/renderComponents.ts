@@ -1,4 +1,4 @@
-import { Button, Layout, Typography } from "antd";
+import { Button, Card, Layout, Typography } from "antd";
 import styled from "styled-components";
 
 const StyledMainLayout = styled(Layout)`
@@ -34,12 +34,21 @@ const AccountStyles = styled.div`
   border-left: 0.35rem solid #1677ff;
   transition: background-color 0.3s;
   padding: 0.25rem 0.25rem 0.25rem 0.7rem;
-
+  cursor: pointer;
   &:hover {
     background-color: rgba(225, 225, 225, 0.5);
   }
 `;
+
+const LoginCard = styled(Card)`
+  width: 50rem;
+  padding: 3rem;
+  padding-right: 1.5rem;
+  border-radius: 2.5rem;
+`;
+
 export {
+  LoginCard,
   StyledMainLayout,
   TransferButton,
   TransactionStyles,
