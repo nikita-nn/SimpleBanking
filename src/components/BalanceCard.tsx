@@ -1,14 +1,30 @@
 import { Card, Flex, Segmented, Skeleton } from "antd";
 import { EditableText, TransferButton } from "../styles/renderComponents.ts";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
-import { useMoneyApi } from "../hooks/useMoneyApi.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch.ts";
+import { Account, RatesResponse } from "../context/UserTypes.ts";
 interface CurrencySymbols {
   [key: string]: string;
 }
-export const BalanceCard = ({ usdBalance }: { usdBalance: number }) => {
-  const rates = useMoneyApi();
+export const BalanceCard = ({ accounts }: { accounts: Account[] }) => {
+  const { get } = useFetch();
+
+  const usdBalance = accounts.reduce(
+    (accumulator, account) => accumulator + account.balance,
+    0,
+  );
+  const [rates, setRates] = useState<RatesResponse>();
   const [balance, setBalance] = useState<string>(usdBalance + " " + "$");
+
+  useEffect(() => {
+    get<RatesResponse>(
+      "https://v6.exchangerate-api.com/v6/96996cbc4ebe9898742f9d8c/latest/USD",
+      {
+        includeCredentials: false,
+      },
+    ).then((response) => setRates(response));
+  }, []);
 
   if (!rates || !rates.conversion_rates) {
     return <Skeleton />;

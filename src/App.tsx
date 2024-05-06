@@ -3,6 +3,7 @@ import { StyledLogo, StyledMainLayout } from "./styles/renderComponents.ts";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Login from "./views/Login.tsx";
 import ClientAreaView from "./views/ClientAreaView.tsx";
+import { UserBankingInfoProvider } from "./context/UserBankingContext.tsx";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -22,7 +23,11 @@ const App = () => {
       children: [{ path: "/clientarea", element: <ClientAreaView /> }],
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <UserBankingInfoProvider>
+      <RouterProvider router={router} />
+    </UserBankingInfoProvider>
+  );
 };
 
 export default App;
