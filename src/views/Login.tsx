@@ -1,32 +1,38 @@
-import { Button, Col, Form, Input, Row } from "antd";
-import { EditableText, LoginCard } from "../styles/renderComponents.ts";
-import { UserOutlined } from "@ant-design/icons";
+import { Flex, Form, Image } from "antd";
+import {
+  LoginButton,
+  LoginCard,
+  LoginInput,
+  LoginText,
+} from "../styles/renderComponents.ts";
 
 const Login = () => {
   const [form] = Form.useForm();
   return (
-    <LoginCard>
-      <Row>
-        <Col span={10}>
-          <EditableText size={2}>
-            <UserOutlined /> Welcome to <br /> online-banking
-          </EditableText>
-        </Col>
-        <Col span={13}>
-          <Form form={form}>
-            <Form.Item required label={"Username"} name={"username"}>
-              <Input required />
-            </Form.Item>
-            <Form.Item required label={"Password"} name={"password"}>
-              <Input />
-            </Form.Item>
-            <Button htmlType={"submit"} type={"primary"}>
-              Log in
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </LoginCard>
+    <Flex
+      vertical
+      align={"center"}
+      justify={"center"}
+      gap={"large"}
+      style={{ height: "100%" }}
+    >
+      <Image src={"/logo.svg"} width={"25%"} preview={false} />
+      <LoginCard>
+        <Form form={form} onFinish={(values) => console.log(values)}>
+          <Form.Item name={"username"}>
+            <LoginText>Username</LoginText>
+            <LoginInput />
+          </Form.Item>
+          <Form.Item name={"password"}>
+            <LoginText>Password</LoginText>
+            <LoginInput type={"password"} />
+          </Form.Item>
+          <LoginButton htmlType={"submit"} type={"primary"}>
+            Log me in
+          </LoginButton>
+        </Form>
+      </LoginCard>
+    </Flex>
   );
 };
 

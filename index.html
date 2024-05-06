@@ -9,10 +9,15 @@
     html,
     body,
     #root {
-      height: 100%;
-      background-image: url("./public/walpaper.jpg");
+      @font-face {
+        font-family: "Alexandria";
+        src: url("./public/Alexandria.ttf") format("truetype");
+      }
+      height: 100vh;
+      background-image: url("/walpaper.jpg");
       background-size: cover;
       background-position: center;
+      font-family: "Alexandria", sans-serif;
     }
   </style>
   <body>

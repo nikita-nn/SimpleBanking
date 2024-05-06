@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { StyledMainLayout } from "./styles/renderComponents.ts";
+import { StyledLogo, StyledMainLayout } from "./styles/renderComponents.ts";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Login from "./views/Login.tsx";
 import ClientAreaView from "./views/ClientAreaView.tsx";
@@ -10,11 +10,14 @@ const App = () => {
     {
       path: "/",
       element: (
-        <StyledMainLayout>
-          <Layout.Content>
-            <Outlet />
-          </Layout.Content>
-        </StyledMainLayout>
+        <>
+          <StyledLogo src={"./public/logo.svg"} preview={false} width={"30%"} />
+          <StyledMainLayout>
+            <Layout.Content>
+              <Outlet />
+            </Layout.Content>
+          </StyledMainLayout>
+        </>
       ),
       children: [{ path: "/clientarea", element: <ClientAreaView /> }],
     },

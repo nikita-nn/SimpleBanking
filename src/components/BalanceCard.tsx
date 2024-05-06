@@ -1,5 +1,5 @@
-import { Card, Flex, Segmented, Skeleton, Typography } from "antd";
-import { TransferButton } from "../styles/renderComponents.ts";
+import { Card, Flex, Segmented, Skeleton } from "antd";
+import { EditableText, TransferButton } from "../styles/renderComponents.ts";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { useMoneyApi } from "../hooks/useMoneyApi.ts";
 import { useState } from "react";
@@ -20,7 +20,6 @@ export const BalanceCard = ({ usdBalance }: { usdBalance: number }) => {
       USD: "$",
       EUR: "€",
       AUD: "A$",
-      ARS: "AR$",
     };
     setBalance(
       Math.round(rates.conversion_rates[currency] * usdBalance) +
@@ -32,14 +31,15 @@ export const BalanceCard = ({ usdBalance }: { usdBalance: number }) => {
   return (
     <Card style={{ padding: "0.5rem" }}>
       <Flex vertical gap={"middle"}>
-        <Typography.Text style={{ fontSize: "2rem" }} italic>
+        <EditableText size={2} italic>
           Balance Overview
-        </Typography.Text>
-        <Typography.Text style={{ fontSize: "4rem" }}>
+        </EditableText>
+        <EditableText size={4}>
           {balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-        </Typography.Text>
+        </EditableText>
         <Segmented
-          options={["USD", "RUB", "EUR", "AUD", "ARS"]}
+          style={{ width: "max-content" }}
+          options={["USD", "RUB", "EUR", "AUD"]}
           onChange={(value) => exchangeCurrencyRate(value)}
         />
         <Flex justify={"space-between"}>

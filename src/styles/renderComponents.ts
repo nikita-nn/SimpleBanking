@@ -1,11 +1,42 @@
-import { Button, Card, Layout, Typography } from "antd";
+import { Button, Card, Image, Input, Layout, Typography } from "antd";
 import styled from "styled-components";
 
 const StyledMainLayout = styled(Layout)`
-  width: 75%;
-  margin: 20px auto;
+  width: 85%;
+  height: 100%;
+  margin: 6% auto;
   padding: 3rem;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  position: relative;
+`;
+
+const LoginInput = styled(Input)`
   border-radius: 1rem;
+  padding-top: 2vh;
+  padding-bottom: 0.5vh;
+  padding-left: 1.5vh;
+  z-index: 1;
+`;
+
+const LoginText = styled(Typography)`
+  position: absolute;
+  z-index: 2;
+  left: 4%;
+  top: 6%;
+  color: gray;
+`;
+
+const LoginButton = styled(Button)`
+  width: 100%;
+  height: 4vh;
+  border-radius: 1rem;
+  font-size: 1rem;
+`;
+const StyledLogo = styled(Image)`
+  position: absolute;
+  top: 1vh;
+  left: 25%;
 `;
 
 const EditableText = styled(Typography.Text)<{ size: number; color?: string }>`
@@ -41,15 +72,16 @@ const AccountStyles = styled.div`
 `;
 
 const LoginCard = styled(Card)`
-  width: 50%;
-  padding: 3rem;
+  width: 30%;
+  padding: 2.5rem;
   border-radius: 2.5rem;
-  position: relative;
-  top: 25%;
-  left: 25%;
 `;
 
 export {
+  LoginText,
+  LoginButton,
+  LoginInput,
+  StyledLogo,
   LoginCard,
   StyledMainLayout,
   TransferButton,
