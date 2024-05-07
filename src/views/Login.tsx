@@ -5,25 +5,21 @@ import {
   LoginInput,
   LoginText,
 } from "../styles/renderComponents.ts";
-import useFetch from "../hooks/useFetch.ts";
-import { ApiUrl } from "../../settings.ts";
-import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
 import { useNavigate } from "react-router-dom";
+import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
+import { useEffect } from "react";
 
 const Login = () => {
   const [form] = Form.useForm();
-  const { post, get } = useFetch();
-  const { updateUser, user } = useUserBankingInfo();
   const navigate = useNavigate();
-  const loginUser = (values: { username: string; password: string }) => {
-    post(ApiUrl + "login/", {
-      data: { username: values.username, password: values.password },
-    })
-      .then(() => get(ApiUrl + "me/").then((response) => updateUser(response)))
-      .then(() => navigate("/clientarea/"));
-  };
+  const { user, loginUser } = useUserBankingInfo();
 
-  console.log(user);
+  useEffect(() => {
+    if (user) {
+      navigate("/clientarea");
+    }
+  }, [user, navigate]);
+
   return (
     <Flex
       vertical

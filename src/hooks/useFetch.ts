@@ -17,6 +17,15 @@ interface Config extends RequestInit {
 }
 
 const useFetch = () => {
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      return parts.pop().split(";").shift();
+    }
+    return null;
+  };
+
   const request = useCallback(
     async <T>(
       method: FetchMethod,
@@ -27,20 +36,20 @@ const useFetch = () => {
         includeCredentials = true,
       }: FetchOptions<T> = {},
     ) => {
+      const csrfToken = getCookie("csrftoken");
       const config: Config = {
         method,
         credentials: includeCredentials ? "include" : "omit", // Conditionally include credentials
         headers: {
           "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
           ...headers,
         },
       };
-
       if (data) {
         if (method !== "GET") {
           config.body = JSON.stringify(data);
         } else {
-          // Handle URL parameters for GET requests
           const params = new URLSearchParams();
           Object.entries(data).forEach(([key, value]) => {
             if (value !== undefined) {

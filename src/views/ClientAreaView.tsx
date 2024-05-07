@@ -1,14 +1,14 @@
-import { Col, Row, Skeleton, Typography } from "antd";
+import { Col, Row, Typography } from "antd";
 import { BalanceCard } from "../components/BalanceCard.tsx";
 import { AccountsComponent } from "../components/AccountsComponent.tsx";
 import { TransactionHistory } from "../components/TransactionHistory.tsx";
 import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
+import { Navigate } from "react-router-dom";
 
 const ClientAreaView = () => {
-  const { user, accounts } = useUserBankingInfo();
-
+  const { user, accounts, logoutUser } = useUserBankingInfo();
   if (!user) {
-    return <Skeleton />;
+    return <Navigate to={"/login"} />;
   }
 
   return (

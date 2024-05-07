@@ -2,7 +2,8 @@ export interface UserBankingData {
   user: User | null;
   accounts: Account[];
   transactions: Transaction[];
-  updateUser: (newUser: User) => void;
+  loginUser: (values: { username: string; password: string }) => void;
+  logoutUser: () => void;
 }
 
 export interface RatesResponse {
@@ -25,6 +26,7 @@ export interface Transaction {
   amount: number;
   to: number;
   from: number;
+  internal?: boolean
 }
 
 export interface User {

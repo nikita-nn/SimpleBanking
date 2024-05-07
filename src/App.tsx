@@ -1,9 +1,26 @@
-import { Layout } from "antd";
+import { Layout, Skeleton } from "antd";
 import { StyledLogo, StyledMainLayout } from "./styles/renderComponents.ts";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 import Login from "./views/Login.tsx";
-import ClientAreaView from "./views/ClientAreaView.tsx";
-import { UserBankingInfoProvider } from "./context/UserBankingContext.tsx";
+import {
+  UserBankingInfoProvider,
+  useUserBankingInfo,
+} from "./context/UserBankingContext.tsx";
+import React from "react";
+
+const ClientAreaComponent = React.lazy(
+  () => import("./views/ClientAreaView.tsx"),
+);
+
+const AuthCheckComponent = () => {
+  const { user } = useUserBankingInfo();
+  return user ? <Navigate to={"/clientarea"} /> : <Navigate to={"/login"} />;
+};
 
 const App = () => {
   const router = createBrowserRouter([
@@ -12,7 +29,7 @@ const App = () => {
       path: "/",
       element: (
         <>
-          <StyledLogo src={"./public/logo.svg"} preview={false} width={"30%"} />
+          <StyledLogo src={"/logo.svg"} preview={false} width={"30%"} />
           <StyledMainLayout>
             <Layout.Content>
               <Outlet />
@@ -20,13 +37,18 @@ const App = () => {
           </StyledMainLayout>
         </>
       ),
-      children: [{ path: "/clientarea", element: <ClientAreaView /> }],
+      children: [
+        { path: "/", element: <AuthCheckComponent /> },
+        { path: "/clientarea", element: <ClientAreaComponent /> },
+      ],
     },
   ]);
   return (
-    <UserBankingInfoProvider>
-      <RouterProvider router={router} />
-    </UserBankingInfoProvider>
+    <React.Suspense fallback={<Skeleton />}>
+      <UserBankingInfoProvider>
+        <RouterProvider router={router} />
+      </UserBankingInfoProvider>
+    </React.Suspense>
   );
 };
 

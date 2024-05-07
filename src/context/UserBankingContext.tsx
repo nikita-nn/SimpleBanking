@@ -1,5 +1,14 @@
-import { createContext, useContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from "react";
 import { User, UserBankingData } from "./UserTypes.ts";
+import useFetch from "../hooks/useFetch.ts";
+import { ApiUrl } from "../../settings.ts";
+import { Navigate } from "react-router-dom";
 
 const UserBankingContext = createContext<UserBankingData | null>(null);
 
@@ -8,12 +17,31 @@ export const UserBankingInfoProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  const { get, post } = useFetch();
   const [user, setUser] = useState<User | null>(null);
   //const [accounts, setAccounts] = useState<[]>([]);
   //const [transactions, setTransactions] = useState<[]>([]);
-  const updateUser = (newUser: User) => {
-    setUser(newUser);
+  const reloadUser = () => {
+    get(ApiUrl + "me/").then((response) => setUser(response));
   };
+
+  const loginUser = (values: { username: string; password: string }) => {
+    post(ApiUrl + "login/", {
+      data: { username: values.username, password: values.password },
+    }).then(reloadUser);
+  };
+
+  const logoutUser = () => {
+    post(ApiUrl + "logout/")
+      .then(() => setUser(null))
+      .then(() => {
+        return <Navigate to={"/login"} />;
+      });
+  };
+
+  useEffect(() => {
+    get(ApiUrl + "me/").then((response) => setUser(response));
+  }, []);
 
   const transactions = [
     {
@@ -149,7 +177,7 @@ export const UserBankingInfoProvider = ({
 
   return (
     <UserBankingContext.Provider
-      value={{ user, accounts, transactions, updateUser }}
+      value={{ user, accounts, transactions, loginUser, logoutUser }}
     >
       {children}
     </UserBankingContext.Provider>
