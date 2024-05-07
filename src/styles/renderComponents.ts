@@ -52,19 +52,19 @@ const TransferButton = styled(Button)`
 const TransactionStyles = styled.div`
   font-size: 1.25rem;
   display: flex;
-  gap: 0.5rem;
+  gap: 1vh;
   align-items: center;
   justify-content: space-between;
   align-content: space-between;
 `;
 
 const AccountStyles = styled.div`
-  height: 4.25rem;
-  border-radius: 0.25rem 0.5rem 0.5rem 0.25rem;
+  height: 6.75vh;
+  border-radius: 0.4vh 0.8vh 0.8vh 0.4vh;
   border: 0.1rem solid #d9d9d9;
-  border-left: 0.35rem solid #1677ff;
+  border-left: 0.5vh solid #1677ff;
   transition: background-color 0.3s;
-  padding: 0.25rem 0.25rem 0.25rem 0.7rem;
+  padding: 0.35vh 0.35vh 0.35vh 0.65rem;
   cursor: pointer;
   &:hover {
     background-color: rgba(225, 225, 225, 0.5);

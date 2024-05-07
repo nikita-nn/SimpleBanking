@@ -6,7 +6,7 @@ import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
 import { Navigate } from "react-router-dom";
 
 const ClientAreaView = () => {
-  const { user, accounts, logoutUser } = useUserBankingInfo();
+  const { user, accounts} = useUserBankingInfo();
   if (!user) {
     return <Navigate to={"/login"} />;
   }

@@ -1,7 +1,7 @@
 import { AccountStyles, EditableText } from "../styles/renderComponents.ts";
 import { Card, Flex, Typography } from "antd";
-import { useState } from "react";
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import  { useState } from "react";
+import { EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
 import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
 
 const Account = ({
@@ -28,7 +28,7 @@ const Account = ({
           <EyeInvisibleOutlined onClick={() => setViewAN(!viewAN)} />
         )}
       </Flex>
-      <EditableText size={1.25} strong>
+      <EditableText size={1.75}>
         {balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} $
       </EditableText>
     </AccountStyles>

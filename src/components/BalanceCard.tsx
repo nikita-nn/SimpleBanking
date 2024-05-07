@@ -45,7 +45,7 @@ export const BalanceCard = ({ accounts }: { accounts: Account[] }) => {
   };
 
   return (
-    <Card style={{ padding: "0.5rem" }}>
+    <Card style={{ padding: "0.6vh" }}>
       <Flex vertical gap={"middle"}>
         <EditableText size={2} italic>
           Balance Overview
