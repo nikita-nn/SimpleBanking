@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-type FetchMethod = "GET" | "POST" | "PUT" | "DELETE";
+type FetchMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
 interface FetchOptions<T> {
   data?: T | null;
@@ -17,13 +17,17 @@ interface Config extends RequestInit {
 }
 
 const useFetch = () => {
-  const getCookie = (name) => {
+  const getCookie = (name: string): string => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
     if (parts.length === 2) {
-      return parts.pop().split(";").shift();
+      const part = parts.pop();
+      if (part) {
+        const result = part.split(";").shift();
+        return result !== undefined ? result : "";
+      }
     }
-    return null;
+    return "";
   };
 
   const request = useCallback(
@@ -79,6 +83,8 @@ const useFetch = () => {
       request<T>("PUT", url, options),
     delete: <T>(url: string, options?: FetchOptions<T>) =>
       request<T>("DELETE", url, options),
+    patch: <T>(url: string, options?: FetchOptions<T>) =>
+      request<T>("PATCH", url, options),
   };
 };
 

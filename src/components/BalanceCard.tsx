@@ -4,14 +4,16 @@ import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch.ts";
 import { Account, RatesResponse } from "../context/UserTypes.ts";
+import { useNavigate } from "react-router-dom";
 interface CurrencySymbols {
   [key: string]: string;
 }
 export const BalanceCard = ({ accounts }: { accounts: Account[] }) => {
   const { get } = useFetch();
+  const navigate = useNavigate();
 
   const usdBalance = accounts.reduce(
-    (accumulator, account) => accumulator + account.balance,
+    (accumulator, account) => accumulator + Math.round(account.balance),
     0,
   );
   const [rates, setRates] = useState<RatesResponse>();
@@ -59,7 +61,11 @@ export const BalanceCard = ({ accounts }: { accounts: Account[] }) => {
           onChange={(value) => exchangeCurrencyRate(value)}
         />
         <Flex justify={"space-between"}>
-          <TransferButton type={"primary"} icon={<ArrowUpOutlined />}>
+          <TransferButton
+            type={"primary"}
+            onClick={() => navigate("/transfer")}
+            icon={<ArrowUpOutlined />}
+          >
             Transfer
           </TransferButton>
           <TransferButton type={"primary"} icon={<ArrowDownOutlined />}>

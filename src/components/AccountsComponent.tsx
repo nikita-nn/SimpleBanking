@@ -1,35 +1,21 @@
 import { AccountStyles, EditableText } from "../styles/renderComponents.ts";
 import { Card, Flex, Typography } from "antd";
-import  { useState } from "react";
-import { EyeInvisibleOutlined, EyeOutlined} from "@ant-design/icons";
 import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
+import { Account } from "../context/UserTypes.ts";
+import { useNavigate } from "react-router-dom";
 
-const Account = ({
-  name,
-  balance,
-  accountNumber,
-}: {
-  name: string;
-  balance: number;
-  accountNumber: number;
-}) => {
-  const [viewAN, setViewAN] = useState(true);
+const RenderAccount = ({ account }: { account: Account }) => {
+  const navigate = useNavigate();
   return (
-    <AccountStyles>
+    <AccountStyles onClick={() => navigate(`/account/${account.id}/`)}>
       <Flex align={"center"} gap={"small"}>
-        <EditableText size={1}>{name}</EditableText>
+        <EditableText size={1}>{account.name}</EditableText>
         <EditableText size={0.9} color={"gray"}>
-          {viewAN ? `··${accountNumber.toString().slice(-4)}` : accountNumber}
+            ··{account.account_number.toString().slice(-4)}
         </EditableText>
-
-        {viewAN ? (
-          <EyeOutlined onClick={() => setViewAN(!viewAN)} />
-        ) : (
-          <EyeInvisibleOutlined onClick={() => setViewAN(!viewAN)} />
-        )}
       </Flex>
       <EditableText size={1.75}>
-        {balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} $
+        {account.balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} $
       </EditableText>
     </AccountStyles>
   );
@@ -44,12 +30,7 @@ export const AccountsComponent = () => {
           Account Summary
         </Typography.Text>
         {accounts.map((account) => (
-          <Account
-            key={account.id}
-            name={account.name}
-            balance={account.balance}
-            accountNumber={account.account_number}
-          />
+          <RenderAccount account={account} />
         ))}
       </Flex>
     </Card>

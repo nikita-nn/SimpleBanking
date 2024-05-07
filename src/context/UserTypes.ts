@@ -4,6 +4,10 @@ export interface UserBankingData {
   transactions: Transaction[];
   loginUser: (values: { username: string; password: string }) => void;
   logoutUser: () => void;
+  createAccount: (
+    name: string,
+    type: "checking" | "savings" | "loan" | "credit_card",
+  ) => void;
 }
 
 export interface RatesResponse {
@@ -26,7 +30,7 @@ export interface Transaction {
   amount: number;
   to: number;
   from: number;
-  internal?: boolean
+  internal?: boolean;
 }
 
 export interface User {

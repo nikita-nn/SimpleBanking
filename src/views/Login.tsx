@@ -31,17 +31,17 @@ const Login = () => {
       <Image src={"/logo.svg"} width={"25%"} preview={false} />
       <LoginCard>
         <Form form={form} onFinish={(values) => loginUser(values)}>
-          <Form.Item name={"username"}>
+          <Form.Item>
             <LoginText>Username</LoginText>
             <Form.Item name={"username"} noStyle>
               <LoginInput />
             </Form.Item>
           </Form.Item>
           <Form.Item>
-            <LoginText>Password</LoginText>
             <Form.Item name={"password"} noStyle>
               <LoginInput />
             </Form.Item>
+            <LoginText>Password</LoginText>
           </Form.Item>
           <LoginButton htmlType={"submit"} type={"primary"}>
             Log me in

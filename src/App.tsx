@@ -12,9 +12,14 @@ import {
   useUserBankingInfo,
 } from "./context/UserBankingContext.tsx";
 import React from "react";
+import AccountInfo from "./components/AccountInfo.tsx";
 
 const ClientAreaComponent = React.lazy(
   () => import("./views/ClientAreaView.tsx"),
+);
+
+const TransferMoneyComponent = React.lazy(
+  () => import("./views/TransferMoney.tsx"),
 );
 
 const AuthCheckComponent = () => {
@@ -40,6 +45,16 @@ const App = () => {
       children: [
         { path: "/", element: <AuthCheckComponent /> },
         { path: "/clientarea", element: <ClientAreaComponent /> },
+        { path: "/transfer", element: <TransferMoneyComponent /> },
+        {
+          path: "/account",
+          children: [
+            {
+              path: ":id",
+              element: <AccountInfo />,
+            },
+          ],
+        },
       ],
     },
   ]);

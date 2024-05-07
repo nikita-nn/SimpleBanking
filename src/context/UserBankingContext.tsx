@@ -5,7 +5,7 @@ import {
   useState,
   useEffect,
 } from "react";
-import { User, UserBankingData } from "./UserTypes.ts";
+import { Account, User, UserBankingData } from "./UserTypes.ts";
 import useFetch from "../hooks/useFetch.ts";
 import { ApiUrl } from "../../settings.ts";
 import { Navigate } from "react-router-dom";
@@ -19,7 +19,7 @@ export const UserBankingInfoProvider = ({
 }) => {
   const { get, post } = useFetch();
   const [user, setUser] = useState<User | null>(null);
-  //const [accounts, setAccounts] = useState<[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   //const [transactions, setTransactions] = useState<[]>([]);
   const reloadUser = () => {
     get(ApiUrl + "me/").then((response) => setUser(response));
@@ -41,6 +41,7 @@ export const UserBankingInfoProvider = ({
 
   useEffect(() => {
     get(ApiUrl + "me/").then((response) => setUser(response));
+    get(ApiUrl + "accounts/").then((response) => setAccounts(response));
   }, []);
 
   const transactions = [
@@ -151,33 +152,29 @@ export const UserBankingInfoProvider = ({
     },
   ];
 
-  const accounts = [
-    {
-      id: 1,
-      name: "My checking",
-      balance: 4000,
-      type: "checking",
-      account_number: 123456789,
-    },
-    {
-      id: 2,
-      name: "My loan",
-      balance: -600,
-      type: "loan",
-      account_number: 987654321,
-    },
-    {
-      id: 3,
-      name: "My savings",
-      balance: 3100,
-      type: "savings",
-      account_number: 456789123,
-    },
-  ];
+  const reloadAccounts = () => {
+    get(ApiUrl + "accounts/").then((response) => setAccounts(response));
+  };
+
+  const createAccount = (
+    name: string,
+    type: "checking" | "savings" | "loan" | "credit_card",
+  ) => {
+    post(ApiUrl + "accounts/", { data: { name: name, type: type } }).then(
+      reloadAccounts,
+    );
+  };
 
   return (
     <UserBankingContext.Provider
-      value={{ user, accounts, transactions, loginUser, logoutUser }}
+      value={{
+        user,
+        accounts,
+        transactions,
+        loginUser,
+        logoutUser,
+        createAccount,
+      }}
     >
       {children}
     </UserBankingContext.Provider>
