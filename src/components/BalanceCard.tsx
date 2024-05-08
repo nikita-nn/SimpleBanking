@@ -57,7 +57,7 @@ export const BalanceCard = () => {
         <EditableText size={2} italic>
           Total balance
         </EditableText>
-        <EditableText size={4}>
+        <EditableText size={4} fontWeight={"normal"}>
           {balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </EditableText>
         <Segmented

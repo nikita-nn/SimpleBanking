@@ -3,9 +3,8 @@ import styled from "styled-components";
 
 const StyledMainLayout = styled(Layout)`
   width: 85%;
-  height: 100%;
+  height: max-content;
   margin: 6% auto;
-  padding: 3rem;
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
   position: relative;
@@ -39,8 +38,13 @@ const StyledLogo = styled(Image)`
   left: 25%;
 `;
 
-const EditableText = styled(Typography.Text)<{ size: number; color?: string }>`
+const EditableText = styled(Typography.Text)<{
+  size: number;
+  color?: string;
+  fontWeight?: string;
+}>`
   font-size: ${(props) => props.size}rem;
+  font-weight: ${(props) => props.fontWeight};
   color: ${(props) => props.color};
 `;
 
@@ -77,16 +81,42 @@ const LoginCard = styled(Card)`
   border-radius: 2.5rem;
 `;
 
+const ActionPanelElement = styled.div`
+  width: 20%;
+  font-size: 1.25rem;
+  height: 5vh;
+  display: flex;
+  align-items: center;
+  gap: 0.5vh;
+  justify-content: center;
+  border: 2px solid lightgray;
+  border-left: 0;
+  border-top: 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:last-child {
+    border-right: 0;
+  }
+  &:hover {
+    background-color: lightgray;
+  }
+`;
 const AccountViewPanel = styled.div`
-  position: absolute;
-  color: white;
-  left: 0;
-  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding: 1.5vh;
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
-  background-color: darkblue;
-  height: 20%;
+  background-color: black;
+  height: 20vh;
   width: 100%;
+  .balance {
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+  }
 `;
 const TransactionStyles = styled.div`
   display: flex;
@@ -96,14 +126,14 @@ const TransactionStyles = styled.div`
   width: 100%;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
-  padding-top: 0.5vh;
-  padding-bottom: 0.7vh;
+  padding: 1.5vh;
   &:not(:last-child) {
     border-bottom: 0;
   }
 `;
 
 export {
+  ActionPanelElement,
   AccountViewPanel,
   TransactionStyles,
   BaseCard,

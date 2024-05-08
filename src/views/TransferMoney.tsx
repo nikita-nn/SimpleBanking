@@ -1,24 +1,22 @@
 import {
-  Button,
-  Col,
+  Button, Card,
   Flex,
   Form,
   Input,
   InputNumber,
-  Progress,
-  Row,
+  Progress, Segmented,
   Select,
-  Typography,
 } from "antd";
 import { useState } from "react";
 import { useAccounts } from "../context/AccountsContext.tsx";
 import { SendTransaction } from "../context/AccountTypes.ts";
+import {EditableText} from "../styles/renderComponents.ts";
 
 const TransferMoney = () => {
   const { accounts, sendTransaction } = useAccounts();
   const [externalForm] = Form.useForm();
   const [progressBarState, setProgressBarState] = useState<number>(0);
-
+  const [isInternal, setIsInternal] = useState(false)
   const changeProgressBar = (_: object, allValues: object) => {
     let filledFields = 0;
     Object.values(allValues).forEach((value) => {
@@ -40,20 +38,20 @@ const TransferMoney = () => {
       internal: false,
     });
   return (
-    <>
+    <Card>
       <Flex vertical gap={"middle"}>
-        <Typography.Title style={{ margin: 0 }}>
+        <EditableText size={2} italic>
           Transfer Funds
-        </Typography.Title>
+        </EditableText>
         <Progress percent={progressBarState} type="line" showInfo={false} />
-        <Row>
-          <Col span={10}>
-            <Typography.Title level={2}>Recipient Info</Typography.Title>
             <Form
               form={externalForm}
               onValuesChange={changeProgressBar}
               onFinish={onSend}
             >
+              <Form.Item>
+                <Segmented options={[{label:"Internal",value:true},{label:"External",value:false}]} onChange={(value)=>setIsInternal(value)}/>
+              </Form.Item>
               <Form.Item
                 name="to_account"
                 rules={[
@@ -63,17 +61,22 @@ const TransferMoney = () => {
                   },
                 ]}
               >
-                <Input placeholder="Recipient Name" />
+                {isInternal ? (
+                    <Select
+                        options={accounts.map((account) => ({
+                          value: account.account_number,
+                          label:
+                              ` ${account.name} Available balance: ${account.balance}$ `,
+                        }))}
+                    />
+                ):( <Input placeholder="Recipient Name" />)}
               </Form.Item>
               <Form.Item name={"from_account"}>
                 <Select
                   options={accounts.map((account) => ({
                     value: account.account_number,
                     label:
-                      account.type +
-                      "  #" +
-                      account.account_number +
-                      ` (${account.name}) Available balance: ${account.balance}$ `,
+                      ` ${account.name} Available balance: ${account.balance}$ `,
                   }))}
                 />
               </Form.Item>
@@ -96,11 +99,8 @@ const TransferMoney = () => {
                 Transfer
               </Button>
             </Form>
-          </Col>
-          <Col span={12}></Col>
-        </Row>
       </Flex>
-    </>
+    </Card>
   );
 };
 

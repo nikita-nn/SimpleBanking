@@ -5,6 +5,8 @@ import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
 import { Navigate } from "react-router-dom";
 import { TransactionHistory } from "../components/TransactionHistory.tsx";
 import { ClientAreaCol } from "../styles/renderComponents.ts";
+import FinancialChart from "../components/FinancialChart.tsx";
+import TransferMoney from "./TransferMoney.tsx";
 
 const ClientAreaView = () => {
   const { user } = useUserBankingInfo();
@@ -13,14 +15,17 @@ const ClientAreaView = () => {
   }
 
   return (
-    <Row gutter={[16, 8]}>
+    <Row gutter={[16, 8]} style={{ padding: "3rem" }}>
       <ClientAreaCol span={8} md={24} lg={12} xl={8}>
         <BalanceCard />
         <AccountsComponent />
       </ClientAreaCol>
       <ClientAreaCol span={8} md={24} lg={12} xl={8}>
         <TransactionHistory />
-      </ClientAreaCol>
+      </ClientAreaCol> <ClientAreaCol span={8} md={24} lg={12} xl={8}>
+        <TransferMoney/>
+        <FinancialChart />
+    </ClientAreaCol>
     </Row>
   );
 };
