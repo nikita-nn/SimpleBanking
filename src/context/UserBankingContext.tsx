@@ -5,7 +5,12 @@ import {
   useState,
   useEffect,
 } from "react";
-import { Account, User, UserBankingData } from "./UserTypes.ts";
+import {
+  Account,
+  SendTransaction,
+  User,
+  UserBankingData,
+} from "./UserTypes.ts";
 import useFetch from "../hooks/useFetch.ts";
 import { ApiUrl } from "../../settings.ts";
 import { Navigate } from "react-router-dom";
@@ -20,15 +25,24 @@ export const UserBankingInfoProvider = ({
   const { get, post } = useFetch();
   const [user, setUser] = useState<User | null>(null);
   const [accounts, setAccounts] = useState<Account[]>([]);
-  //const [transactions, setTransactions] = useState<[]>([]);
+  const [transactions, setTransactions] = useState<[]>([]);
   const reloadUser = () => {
     get(ApiUrl + "me/").then((response) => setUser(response));
+  };
+
+  const reloadData = () => {
+    reloadUser();
+    reloadAccounts();
   };
 
   const loginUser = (values: { username: string; password: string }) => {
     post(ApiUrl + "login/", {
       data: { username: values.username, password: values.password },
-    }).then(reloadUser);
+    }).then(reloadData);
+  };
+
+  const sendTransaction = (transaction: SendTransaction) => {
+    post(ApiUrl + "transactions/", { data: transaction }).then(reloadAccounts);
   };
 
   const logoutUser = () => {
@@ -40,122 +54,13 @@ export const UserBankingInfoProvider = ({
   };
 
   useEffect(() => {
-    get(ApiUrl + "me/").then((response) => setUser(response));
-    get(ApiUrl + "accounts/").then((response) => setAccounts(response));
+    reloadData();
   }, []);
-
-  const transactions = [
-    {
-      id: 21321,
-      out: true,
-      amount: 50,
-      to: 33333,
-      from: 11111,
-    },
-    {
-      id: 21322,
-      out: false,
-      amount: 75,
-      to: 11111,
-      from: 33333,
-    },
-    {
-      id: 21323,
-      out: true,
-      amount: 20,
-      to: 44444,
-      from: 11111,
-    },
-    {
-      id: 21324,
-      out: false,
-      amount: 100,
-      to: 11111,
-      from: 55555,
-    },
-    {
-      id: 21325,
-      out: true,
-      amount: 200,
-      to: 66666,
-      from: 11111,
-    },
-    {
-      id: 21324,
-      out: false,
-      amount: 100,
-      to: 11111,
-      from: 55555,
-    },
-    {
-      id: 21325,
-      out: true,
-      amount: 200,
-      to: 66666,
-      from: 11111,
-    },
-    {
-      id: 21324,
-      out: false,
-      amount: 100,
-      to: 11111,
-      from: 55555,
-    },
-    {
-      id: 21325,
-      out: true,
-      amount: 200,
-      to: 66666,
-      from: 11111,
-    },
-    {
-      id: 21324,
-      out: false,
-      amount: 100,
-      to: 11111,
-      from: 55555,
-    },
-    {
-      id: 21325,
-      out: true,
-      amount: 200,
-      to: 66666,
-      from: 11111,
-    },
-    {
-      id: 21324,
-      out: false,
-      amount: 100,
-      to: 11111,
-      from: 55555,
-    },
-    {
-      id: 21325,
-      out: true,
-      amount: 200,
-      to: 66666,
-      from: 11111,
-    },
-    {
-      id: 21324,
-      out: false,
-      amount: 100,
-      to: 11111,
-      from: 55555,
-    },
-    {
-      id: 21325,
-      out: true,
-      amount: 200,
-      to: 66666,
-      from: 11111,
-    },
-  ];
 
   const reloadAccounts = () => {
     get(ApiUrl + "accounts/").then((response) => setAccounts(response));
+    get(ApiUrl + "transactions/last_transactions").then((response) => setTransactions(response));
   };
-
   const createAccount = (
     name: string,
     type: "checking" | "savings" | "loan" | "credit_card",
@@ -174,6 +79,7 @@ export const UserBankingInfoProvider = ({
         loginUser,
         logoutUser,
         createAccount,
+        sendTransaction,
       }}
     >
       {children}

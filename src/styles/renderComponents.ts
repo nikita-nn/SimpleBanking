@@ -59,7 +59,7 @@ const TransactionStyles = styled.div`
 `;
 
 const AccountStyles = styled.div`
-  height: 6.75vh;
+  height: fit-content;
   border-radius: 0.4vh 0.8vh 0.8vh 0.4vh;
   border: 0.1rem solid #d9d9d9;
   border-left: 0.5vh solid #1677ff;

@@ -2,7 +2,6 @@ import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
 import {
   Button,
   Col,
-  Divider,
   Flex,
   Form,
   Input,
@@ -13,24 +12,33 @@ import {
   Typography,
 } from "antd";
 import { useState } from "react";
+import { SendTransaction } from "../context/UserTypes.ts";
 
 const TransferMoney = () => {
-  const { accounts } = useUserBankingInfo();
+  const { accounts, sendTransaction } = useUserBankingInfo();
   const [externalForm] = Form.useForm();
   const [progressBarState, setProgressBarState] = useState<number>(0);
 
   const changeProgressBar = (_: object, allValues: object) => {
     let filledFields = 0;
     Object.values(allValues).forEach((value) => {
-      if (value != 0 && value != "") {
+      if (value != 0 && value != "" && value) {
         filledFields++;
       }
     });
-    const fieldsCount = 3;
+    const fieldsCount = 4;
 
     setProgressBarState((filledFields * 100) / fieldsCount);
   };
-
+  const onSend = (values: SendTransaction) =>
+    sendTransaction({
+      transaction_type: "transfer",
+      amount: values.amount,
+      from_account: values.from_account,
+      to_account: values.to_account,
+      description: values.description,
+      internal: false,
+    });
   return (
     <>
       <Flex vertical gap={"middle"}>
@@ -40,16 +48,15 @@ const TransferMoney = () => {
         <Progress percent={progressBarState} type="line" showInfo={false} />
         <Row>
           <Col span={10}>
-            <Divider />
             <Typography.Title level={2}>Recipient Info</Typography.Title>
             <Form
               form={externalForm}
               onValuesChange={changeProgressBar}
-              onFinish={(values) => console.log(values)}
+              onFinish={onSend
+              }
             >
               <Form.Item
-                initialValue={""}
-                name="recipient"
+                name="to_account"
                 rules={[
                   {
                     required: true,
@@ -59,19 +66,7 @@ const TransferMoney = () => {
               >
                 <Input placeholder="Recipient Name" />
               </Form.Item>
-              <Form.Item
-                initialValue={0}
-                name="amount"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please enter the amount to transfer",
-                  },
-                ]}
-              >
-                <InputNumber placeholder="Amount" min={0} addonAfter={"$"} />
-              </Form.Item>
-              <Form.Item name={"sending_account"}>
+              <Form.Item name={"from_account"}>
                 <Select
                   options={accounts.map((account) => ({
                     value: account.account_number,
@@ -82,6 +77,21 @@ const TransferMoney = () => {
                       ` (${account.name}) Available balance: ${account.balance}$ `,
                   }))}
                 />
+              </Form.Item>
+              <Form.Item
+                initialValue={0}
+                name={"amount"}
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter the amount to transfer",
+                  },
+                ]}
+              >
+                <InputNumber placeholder="Amount" min={0} addonAfter={"$"} />
+              </Form.Item>
+              <Form.Item name={"description"}>
+                <Input />
               </Form.Item>
               <Button type={"primary"} htmlType={"submit"}>
                 Transfer

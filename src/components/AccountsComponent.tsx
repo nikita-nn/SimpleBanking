@@ -11,7 +11,7 @@ const RenderAccount = ({ account }: { account: Account }) => {
       <Flex align={"center"} gap={"small"}>
         <EditableText size={1}>{account.name}</EditableText>
         <EditableText size={0.9} color={"gray"}>
-            ··{account.account_number.toString().slice(-4)}
+          ··{account.account_number.toString().slice(-4)}
         </EditableText>
       </Flex>
       <EditableText size={1.75}>

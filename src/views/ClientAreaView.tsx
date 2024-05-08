@@ -1,12 +1,12 @@
 import { Col, Row, Typography } from "antd";
 import { BalanceCard } from "../components/BalanceCard.tsx";
 import { AccountsComponent } from "../components/AccountsComponent.tsx";
-import { TransactionHistory } from "../components/TransactionHistory.tsx";
 import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
 import { Navigate } from "react-router-dom";
+import {TransactionHistory} from "../components/TransactionHistory.tsx";
 
 const ClientAreaView = () => {
-  const { user, accounts} = useUserBankingInfo();
+  const { user, accounts } = useUserBankingInfo();
   if (!user) {
     return <Navigate to={"/login"} />;
   }
@@ -24,8 +24,8 @@ const ClientAreaView = () => {
           <BalanceCard accounts={accounts} />
           <AccountsComponent />
         </Col>
-        <Col span={16}>
-          <TransactionHistory />
+        <Col span={8}>
+            <TransactionHistory/>
         </Col>
       </Row>
     </>
