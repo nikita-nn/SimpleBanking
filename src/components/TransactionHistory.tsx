@@ -1,22 +1,48 @@
-import { Card, Flex} from "antd";
-import { EditableText} from "../styles/renderComponents.ts";
-import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
+import { Flex } from "antd";
+import {
+  BaseCard,
+  EditableText,
+  TransactionStyles,
+} from "../styles/renderComponents.ts";
+import dayjs from "dayjs";
+import { useAccounts } from "../context/AccountsContext.tsx";
 
-
-const RenderTransaction = (transaction: Transaction[]) => {
-
-}
 export const TransactionHistory = () => {
-  const { transactions } = useUserBankingInfo();
+  const { transactions } = useAccounts();
 
   return (
-    <Card style={{ padding: "0 0.5rem 0.5rem 0.5rem" }}>
+    <BaseCard>
       <Flex vertical gap={"middle"}>
         <EditableText size={2} italic>
-         Recent Transactions
+          Recent Transactions
         </EditableText>
-          <
+        <div>
+          {transactions.map((transaction) => (
+            <TransactionStyles>
+              <Flex gap={"large"} align={"center"}>
+                <EditableText size={1.25}>
+                  {dayjs(transaction.date).format("DD MMMM")}
+                </EditableText>
+                <EditableText size={1.12} color={"gray"}>
+                  {transaction.internal ? "INTERNAL" : "EXTERNAL"}{" "}
+                  {transaction.transaction_type.toUpperCase()}
+                </EditableText>
+              </Flex>
+              <EditableText
+                size={1.5}
+                color={
+                  transaction.transaction_type == "deposit"
+                    ? "#5d986c"
+                    : "#b05041"
+                }
+              >
+                {transaction.transaction_type == "deposit" ? "+" : "-"}
+                {transaction.amount}$
+              </EditableText>
+            </TransactionStyles>
+          ))}
+        </div>
       </Flex>
-    </Card>
+    </BaseCard>
   );
 };

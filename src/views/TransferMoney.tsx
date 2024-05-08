@@ -1,4 +1,3 @@
-import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
 import {
   Button,
   Col,
@@ -12,10 +11,11 @@ import {
   Typography,
 } from "antd";
 import { useState } from "react";
-import { SendTransaction } from "../context/UserTypes.ts";
+import { useAccounts } from "../context/AccountsContext.tsx";
+import { SendTransaction } from "../context/AccountTypes.ts";
 
 const TransferMoney = () => {
-  const { accounts, sendTransaction } = useUserBankingInfo();
+  const { accounts, sendTransaction } = useAccounts();
   const [externalForm] = Form.useForm();
   const [progressBarState, setProgressBarState] = useState<number>(0);
 
@@ -52,8 +52,7 @@ const TransferMoney = () => {
             <Form
               form={externalForm}
               onValuesChange={changeProgressBar}
-              onFinish={onSend
-              }
+              onFinish={onSend}
             >
               <Form.Item
                 name="to_account"

@@ -1,4 +1,4 @@
-import { Button, Card, Image, Input, Layout, Typography } from "antd";
+import { Button, Card, Col, Image, Input, Layout, Typography } from "antd";
 import styled from "styled-components";
 
 const StyledMainLayout = styled(Layout)`
@@ -44,18 +44,13 @@ const EditableText = styled(Typography.Text)<{ size: number; color?: string }>`
   color: ${(props) => props.color};
 `;
 
+const BaseCard = styled(Card)`
+  padding: 0.6vh;
+`;
+
 const TransferButton = styled(Button)`
   border-radius: 0.75rem;
   width: 47%;
-`;
-
-const TransactionStyles = styled.div`
-  font-size: 1.25rem;
-  display: flex;
-  gap: 1vh;
-  align-items: center;
-  justify-content: space-between;
-  align-content: space-between;
 `;
 
 const AccountStyles = styled.div`
@@ -71,13 +66,47 @@ const AccountStyles = styled.div`
   }
 `;
 
+const ClientAreaCol = styled(Col)`
+  display: flex;
+  gap: 1.25vh;
+  flex-direction: column;
+`;
 const LoginCard = styled(Card)`
   width: 30%;
   padding: 2.5rem;
   border-radius: 2.5rem;
 `;
 
+const AccountViewPanel = styled.div`
+  position: absolute;
+  color: white;
+  left: 0;
+  top: 0;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+  background-color: darkblue;
+  height: 20%;
+  width: 100%;
+`;
+const TransactionStyles = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: fit-content;
+  width: 100%;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  padding-top: 0.5vh;
+  padding-bottom: 0.7vh;
+  &:not(:last-child) {
+    border-bottom: 0;
+  }
+`;
+
 export {
+  AccountViewPanel,
+  TransactionStyles,
+  BaseCard,
   LoginText,
   LoginButton,
   LoginInput,
@@ -85,7 +114,7 @@ export {
   LoginCard,
   StyledMainLayout,
   TransferButton,
-  TransactionStyles,
   EditableText,
   AccountStyles,
+  ClientAreaCol,
 };

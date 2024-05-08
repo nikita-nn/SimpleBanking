@@ -1,34 +1,27 @@
-import { Col, Row, Typography } from "antd";
+import { Row } from "antd";
 import { BalanceCard } from "../components/BalanceCard.tsx";
 import { AccountsComponent } from "../components/AccountsComponent.tsx";
 import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
 import { Navigate } from "react-router-dom";
-import {TransactionHistory} from "../components/TransactionHistory.tsx";
+import { TransactionHistory } from "../components/TransactionHistory.tsx";
+import { ClientAreaCol } from "../styles/renderComponents.ts";
 
 const ClientAreaView = () => {
-  const { user, accounts } = useUserBankingInfo();
+  const { user } = useUserBankingInfo();
   if (!user) {
     return <Navigate to={"/login"} />;
   }
 
   return (
-    <>
-      <Typography.Title style={{ marginTop: 0 }}>
-        Welcome back {user?.first_name} {user?.last_name}!
-      </Typography.Title>
-      <Row gutter={16}>
-        <Col
-          span={8}
-          style={{ display: "flex", gap: "1rem", flexDirection: "column" }}
-        >
-          <BalanceCard accounts={accounts} />
-          <AccountsComponent />
-        </Col>
-        <Col span={8}>
-            <TransactionHistory/>
-        </Col>
-      </Row>
-    </>
+    <Row gutter={[16, 8]}>
+      <ClientAreaCol span={8} md={24} lg={12} xl={8}>
+        <BalanceCard />
+        <AccountsComponent />
+      </ClientAreaCol>
+      <ClientAreaCol span={8} md={24} lg={12} xl={8}>
+        <TransactionHistory />
+      </ClientAreaCol>
+    </Row>
   );
 };
 

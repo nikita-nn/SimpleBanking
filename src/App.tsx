@@ -12,7 +12,8 @@ import {
   useUserBankingInfo,
 } from "./context/UserBankingContext.tsx";
 import React from "react";
-import AccountInfo from "./components/AccountInfo.tsx";
+import { AccountsContextProvider } from "./context/AccountsContext.tsx";
+import AccountView from "./views/AccountView.tsx";
 
 const ClientAreaComponent = React.lazy(
   () => import("./views/ClientAreaView.tsx"),
@@ -51,7 +52,7 @@ const App = () => {
           children: [
             {
               path: ":id",
-              element: <AccountInfo />,
+              element: <AccountView />,
             },
           ],
         },
@@ -61,7 +62,9 @@ const App = () => {
   return (
     <React.Suspense fallback={<Skeleton />}>
       <UserBankingInfoProvider>
-        <RouterProvider router={router} />
+        <AccountsContextProvider>
+          <RouterProvider router={router} />
+        </AccountsContextProvider>
       </UserBankingInfoProvider>
     </React.Suspense>
   );

@@ -1,17 +1,22 @@
-import { Card, Flex, Segmented, Skeleton } from "antd";
-import { EditableText, TransferButton } from "../styles/renderComponents.ts";
+import { Flex, Segmented, Skeleton } from "antd";
+import {
+  BaseCard,
+  EditableText,
+  TransferButton,
+} from "../styles/renderComponents.ts";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch.ts";
-import { Account, RatesResponse } from "../context/UserTypes.ts";
+import { RatesResponse } from "../context/UserTypes.ts";
 import { useNavigate } from "react-router-dom";
+import { useAccounts } from "../context/AccountsContext.tsx";
 interface CurrencySymbols {
   [key: string]: string;
 }
-export const BalanceCard = ({ accounts }: { accounts: Account[] }) => {
+export const BalanceCard = () => {
   const { get } = useFetch();
   const navigate = useNavigate();
-
+  const { accounts } = useAccounts();
   const usdBalance = accounts.reduce(
     (accumulator, account) => accumulator + Math.round(account.balance),
     0,
@@ -47,10 +52,10 @@ export const BalanceCard = ({ accounts }: { accounts: Account[] }) => {
   };
 
   return (
-    <Card style={{ padding: "0.6vh" }}>
+    <BaseCard>
       <Flex vertical gap={"middle"}>
         <EditableText size={2} italic>
-          Balance Overview
+          Total balance
         </EditableText>
         <EditableText size={4}>
           {balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -73,6 +78,6 @@ export const BalanceCard = ({ accounts }: { accounts: Account[] }) => {
           </TransferButton>
         </Flex>
       </Flex>
-    </Card>
+    </BaseCard>
   );
 };

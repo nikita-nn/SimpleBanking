@@ -1,13 +1,19 @@
-import { AccountStyles, EditableText } from "../styles/renderComponents.ts";
-import { Card, Flex, Typography } from "antd";
-import { useUserBankingInfo } from "../context/UserBankingContext.tsx";
-import { Account } from "../context/UserTypes.ts";
+import {
+  AccountStyles,
+  BaseCard,
+  EditableText,
+} from "../styles/renderComponents.ts";
+import { Flex } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useAccounts } from "../context/AccountsContext.tsx";
+import { Account } from "../context/AccountTypes.ts";
 
 const RenderAccount = ({ account }: { account: Account }) => {
   const navigate = useNavigate();
   return (
-    <AccountStyles onClick={() => navigate(`/account/${account.id}/`)}>
+    <AccountStyles
+      onClick={() => navigate(`/account/${account.account_number}/`)}
+    >
       <Flex align={"center"} gap={"small"}>
         <EditableText size={1}>{account.name}</EditableText>
         <EditableText size={0.9} color={"gray"}>
@@ -22,17 +28,17 @@ const RenderAccount = ({ account }: { account: Account }) => {
 };
 
 export const AccountsComponent = () => {
-  const { accounts } = useUserBankingInfo();
+  const { accounts } = useAccounts();
   return (
-    <Card>
+    <BaseCard>
       <Flex vertical gap={"middle"}>
-        <Typography.Text style={{ fontSize: "2rem" }} italic>
+        <EditableText size={2} italic>
           Account Summary
-        </Typography.Text>
+        </EditableText>
         {accounts.map((account) => (
           <RenderAccount account={account} />
         ))}
       </Flex>
-    </Card>
+    </BaseCard>
   );
 };
