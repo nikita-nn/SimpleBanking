@@ -22,10 +22,14 @@ export const AccountsContextProvider = ({
 
   useEffect(() => {
     reloadAccounts();
+    reloadTransactions();
   }, []);
 
   const reloadAccounts = () => {
     get(ApiUrl + "accounts/").then((response) => setAccounts(response));
+  };
+
+  const reloadTransactions = () => {
     get(ApiUrl + "transactions/last_transactions/").then((response) =>
       setTransactions(response),
     );
@@ -49,6 +53,8 @@ export const AccountsContextProvider = ({
         transactions,
         createAccount,
         sendTransaction,
+        reloadAccounts,
+        reloadTransactions,
       }}
     >
       {children}

@@ -7,6 +7,7 @@ import { TransactionHistory } from "../components/TransactionHistory.tsx";
 import { ClientAreaCol } from "../styles/renderComponents.ts";
 import FinancialChart from "../components/FinancialChart.tsx";
 import TransferMoney from "./TransferMoney.tsx";
+import ActionCard from "./ActionCard.tsx";
 
 const ClientAreaView = () => {
   const { user } = useUserBankingInfo();
@@ -21,11 +22,13 @@ const ClientAreaView = () => {
         <AccountsComponent />
       </ClientAreaCol>
       <ClientAreaCol span={8} md={24} lg={12} xl={8}>
+        <ActionCard />
         <TransactionHistory />
-      </ClientAreaCol> <ClientAreaCol span={8} md={24} lg={12} xl={8}>
-        <TransferMoney/>
+      </ClientAreaCol>{" "}
+      <ClientAreaCol span={8} md={24} lg={12} xl={8}>
+        <TransferMoney />
         <FinancialChart />
-    </ClientAreaCol>
+      </ClientAreaCol>
     </Row>
   );
 };

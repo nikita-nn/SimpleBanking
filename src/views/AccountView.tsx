@@ -2,10 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch.ts";
 import { ApiUrl } from "../../settings.ts";
-import {
-  AccountViewPanel,
-  EditableText,
-} from "../styles/renderComponents.ts";
+import { AccountViewPanel, EditableText } from "../styles/renderComponents.ts";
 import { useAccounts } from "../context/AccountsContext.tsx";
 import { Skeleton } from "antd";
 import { RenderTransactions } from "../components/TransactionHistory.tsx";

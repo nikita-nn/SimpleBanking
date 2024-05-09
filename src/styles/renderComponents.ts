@@ -1,9 +1,10 @@
 import { Button, Card, Col, Image, Input, Layout, Typography } from "antd";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledMainLayout = styled(Layout)`
   width: 85%;
-  height: max-content;
+  height: 100%;
   margin: 6% auto;
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
@@ -16,6 +17,10 @@ const LoginInput = styled(Input)`
   padding-bottom: 0.5vh;
   padding-left: 1.5vh;
   z-index: 1;
+`;
+
+const StyledLink = styled(Link)`
+  font-size: 2vh;
 `;
 
 const LoginText = styled(Typography)`
@@ -81,6 +86,7 @@ const LoginCard = styled(Card)`
   border-radius: 2.5rem;
 `;
 
+/*
 const ActionPanelElement = styled.div`
   width: 20%;
   font-size: 1.25rem;
@@ -101,6 +107,7 @@ const ActionPanelElement = styled.div`
     background-color: lightgray;
   }
 `;
+*/
 const AccountViewPanel = styled.div`
   display: flex;
   flex-direction: column;
@@ -133,7 +140,7 @@ const TransactionStyles = styled.div`
 `;
 
 export {
-  ActionPanelElement,
+  StyledLink,
   AccountViewPanel,
   TransactionStyles,
   BaseCard,

@@ -9,13 +9,14 @@ import { User, UserBankingData } from "./UserTypes.ts";
 import useFetch from "../hooks/useFetch.ts";
 import { ApiUrl } from "../../settings.ts";
 import { Navigate } from "react-router-dom";
+import { useAccounts } from "./AccountsContext.tsx";
 
 const UserBankingContext = createContext<UserBankingData | null>(null);
 
 const UserBankingInfoProvider = ({ children }: { children: ReactNode }) => {
   const { get, post } = useFetch();
   const [user, setUser] = useState<User | null>(null);
-
+  const { reloadAccounts, reloadTransactions } = useAccounts();
   const reloadUser = () => {
     get(ApiUrl + "me/").then((response) => setUser(response));
   };
@@ -23,7 +24,11 @@ const UserBankingInfoProvider = ({ children }: { children: ReactNode }) => {
   const loginUser = (values: { username: string; password: string }) => {
     post(ApiUrl + "login/", {
       data: { username: values.username, password: values.password },
-    }).then(reloadUser);
+    }).then(() => {
+      reloadUser();
+      reloadTransactions();
+      reloadAccounts();
+    });
   };
 
   const logoutUser = () => {

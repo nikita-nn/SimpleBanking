@@ -6,6 +6,8 @@ export interface AccountsData {
   sendTransaction: (transaction: SendTransaction) => void;
   accounts: Account[];
   transactions: Transaction[];
+  reloadAccounts: () => void;
+  reloadTransactions: () => void;
 }
 
 export interface Account {

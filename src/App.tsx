@@ -61,11 +61,11 @@ const App = () => {
   ]);
   return (
     <React.Suspense fallback={<Skeleton />}>
-      <UserBankingInfoProvider>
-        <AccountsContextProvider>
+      <AccountsContextProvider>
+        <UserBankingInfoProvider>
           <RouterProvider router={router} />
-        </AccountsContextProvider>
-      </UserBankingInfoProvider>
+        </UserBankingInfoProvider>
+      </AccountsContextProvider>
     </React.Suspense>
   );
 };
