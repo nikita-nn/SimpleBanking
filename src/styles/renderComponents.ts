@@ -1,13 +1,11 @@
 import { Button, Card, Col, Image, Input, Layout, Typography } from "antd";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const StyledMainLayout = styled(Layout)`
   width: 85%;
-  height: 100%;
+  height: max-content;
   margin: 6% auto;
-  border-top-right-radius: 1rem;
-  border-top-left-radius: 1rem;
+  border-radius: 1rem;
   position: relative;
 `;
 
@@ -19,8 +17,9 @@ const LoginInput = styled(Input)`
   z-index: 1;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Button)`
   font-size: 2vh;
+  width: max-content;
 `;
 
 const LoginText = styled(Typography)`

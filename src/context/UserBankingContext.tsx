@@ -17,6 +17,7 @@ const UserBankingInfoProvider = ({ children }: { children: ReactNode }) => {
   const { get, post } = useFetch();
   const [user, setUser] = useState<User | null>(null);
   const { reloadAccounts, reloadTransactions } = useAccounts();
+
   const reloadUser = () => {
     get(ApiUrl + "me/").then((response) => setUser(response));
   };
@@ -24,11 +25,15 @@ const UserBankingInfoProvider = ({ children }: { children: ReactNode }) => {
   const loginUser = (values: { username: string; password: string }) => {
     post(ApiUrl + "login/", {
       data: { username: values.username, password: values.password },
-    }).then(() => {
-      reloadUser();
-      reloadTransactions();
-      reloadAccounts();
-    });
+    })
+      .catch((e) => {
+        alert(e);
+      })
+      .then(() => {
+        reloadUser();
+        reloadTransactions();
+        reloadAccounts();
+      });
   };
 
   const logoutUser = () => {

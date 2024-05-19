@@ -47,6 +47,7 @@ const TransferMoney = () => {
         </EditableText>
         <Progress percent={progressBarState} type="line" showInfo={false} />
         <Form
+          layout="vertical"
           form={externalForm}
           onValuesChange={changeProgressBar}
           onFinish={onSend}
@@ -62,6 +63,7 @@ const TransferMoney = () => {
           </Form.Item>
           <Form.Item
             name="to_account"
+            label={"To account:"}
             rules={[
               {
                 required: true,
@@ -80,7 +82,7 @@ const TransferMoney = () => {
               <Input placeholder="Recipient Name" />
             )}
           </Form.Item>
-          <Form.Item name={"from_account"}>
+          <Form.Item name={"from_account"} label={"From account:"} required>
             <Select
               options={accounts.map((account) => ({
                 value: account.account_number,
@@ -90,6 +92,8 @@ const TransferMoney = () => {
           </Form.Item>
           <Form.Item
             initialValue={0}
+            label={"Amount:"}
+            required
             name={"amount"}
             rules={[
               {
@@ -100,7 +104,7 @@ const TransferMoney = () => {
           >
             <InputNumber placeholder="Amount" min={0} addonAfter={"$"} />
           </Form.Item>
-          <Form.Item name={"description"}>
+          <Form.Item name={"description"} label={"Comment:"}>
             <Input />
           </Form.Item>
           <Button type={"primary"} htmlType={"submit"}>

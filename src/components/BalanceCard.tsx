@@ -1,21 +1,14 @@
 import { Flex, Segmented, Skeleton } from "antd";
-import {
-  BaseCard,
-  EditableText,
-  TransferButton,
-} from "../styles/renderComponents.ts";
-import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
+import { BaseCard, EditableText } from "../styles/renderComponents.ts";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch.ts";
 import { RatesResponse } from "../context/UserTypes.ts";
-import { useNavigate } from "react-router-dom";
 import { useAccounts } from "../context/AccountsContext.tsx";
 interface CurrencySymbols {
   [key: string]: string;
 }
 export const BalanceCard = () => {
   const { get } = useFetch();
-  const navigate = useNavigate();
   const { accounts } = useAccounts();
   const usdBalance = accounts.reduce(
     (accumulator, account) => accumulator + Math.round(account.balance),
@@ -65,18 +58,6 @@ export const BalanceCard = () => {
           options={["USD", "RUB", "EUR", "AUD"]}
           onChange={(value) => exchangeCurrencyRate(value)}
         />
-        <Flex justify={"space-between"}>
-          <TransferButton
-            type={"primary"}
-            onClick={() => navigate("/transfer")}
-            icon={<ArrowUpOutlined />}
-          >
-            Transfer
-          </TransferButton>
-          <TransferButton type={"primary"} icon={<ArrowDownOutlined />}>
-            Receive
-          </TransferButton>
-        </Flex>
       </Flex>
     </BaseCard>
   );

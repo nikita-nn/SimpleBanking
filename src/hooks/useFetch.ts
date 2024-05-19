@@ -16,20 +16,20 @@ interface Config extends RequestInit {
   body?: string;
 }
 
-const useFetch = () => {
-  const getCookie = (name: string): string => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) {
-      const part = parts.pop();
-      if (part) {
-        const result = part.split(";").shift();
-        return result !== undefined ? result : "";
-      }
+export const getCookie = (name: string): string => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) {
+    const part = parts.pop();
+    if (part) {
+      const result = part.split(";").shift();
+      return result !== undefined ? result : "";
     }
-    return "";
-  };
+  }
+  return "";
+};
 
+const useFetch = () => {
   const request = useCallback(
     async <T>(
       method: FetchMethod,

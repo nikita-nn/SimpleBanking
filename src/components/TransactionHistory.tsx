@@ -21,10 +21,17 @@ export const RenderTransactions = ({
             <EditableText size={1.25}>
               {dayjs(transaction.date).format("DD MMMM")}
             </EditableText>
-            <EditableText size={1.12} color={"gray"}>
-              {transaction.internal ? "INTERNAL" : "EXTERNAL"}{" "}
-              {transaction.transaction_type.toUpperCase()}
-            </EditableText>
+            <Flex vertical>
+              <EditableText size={1.12} color={"gray"}>
+                {transaction.internal ? "INTERNAL" : "EXTERNAL"}{" "}
+                {transaction.transaction_type.toUpperCase()}
+              </EditableText>
+              {transaction.description && (
+                <EditableText size={1} italic>
+                  «{transaction.description}»
+                </EditableText>
+              )}
+            </Flex>
           </Flex>
           <EditableText
             size={1.5}
