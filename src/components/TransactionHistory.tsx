@@ -1,4 +1,4 @@
-import { Flex } from "antd";
+import { Empty, Flex } from "antd";
 import {
   BaseCard,
   EditableText,
@@ -16,7 +16,7 @@ export const RenderTransactions = ({
   return (
     <div>
       {transactions.map((transaction) => (
-        <TransactionStyles>
+        <TransactionStyles key={transaction.id}>
           <Flex gap={"large"} align={"center"}>
             <EditableText size={1.25}>
               {dayjs(transaction.date).format("DD MMMM")}
@@ -56,7 +56,11 @@ export const TransactionHistory = () => {
         <EditableText size={2} italic>
           Recent Transactions
         </EditableText>
-        <RenderTransactions transactions={transactions} />
+        {transactions.length ? (
+          <RenderTransactions transactions={transactions} />
+        ) : (
+          <Empty />
+        )}
       </Flex>
     </BaseCard>
   );

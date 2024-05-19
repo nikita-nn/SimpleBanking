@@ -8,6 +8,7 @@ import { ClientAreaCol } from "../styles/renderComponents.ts";
 import FinancialChart from "../components/FinancialChart.tsx";
 import TransferMoney from "./TransferMoney.tsx";
 import ActionCard from "./ActionCard.tsx";
+import OpenAccount from "../components/OpenAccount.tsx";
 
 const ClientAreaView = () => {
   const { user } = useUserBankingInfo();
@@ -28,6 +29,7 @@ const ClientAreaView = () => {
       </ClientAreaCol>{" "}
       <ClientAreaCol span={8} md={24} lg={12} xl={7}>
         <TransferMoney />
+        <OpenAccount />
       </ClientAreaCol>
     </Row>
   );

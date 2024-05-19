@@ -1,17 +1,23 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch.ts";
 import { ApiUrl } from "../../settings.ts";
-import { AccountViewPanel, EditableText } from "../styles/renderComponents.ts";
+import {
+  AccountViewPanel,
+  ActionPanelElement,
+  EditableText,
+} from "../styles/renderComponents.ts";
 import { useAccounts } from "../context/AccountsContext.tsx";
-import { Skeleton } from "antd";
+import { Divider, Empty, Flex, Skeleton } from "antd";
 import { RenderTransactions } from "../components/TransactionHistory.tsx";
 import { Transaction } from "../context/AccountTypes.ts";
+import { CloseOutlined } from "@ant-design/icons";
 
 const AccountView = () => {
   const { id } = useParams();
   const { get } = useFetch();
-  const { accounts } = useAccounts();
+  const { accounts, closeAccount } = useAccounts();
+  const navigate = useNavigate();
   const [accountTransactions, setAccountTransactions] = useState<Transaction[]>(
     [],
   );
@@ -41,8 +47,27 @@ const AccountView = () => {
           </EditableText>
         </div>
       </AccountViewPanel>
-
-      <RenderTransactions transactions={accountTransactions} />
+      <ActionPanelElement
+        onClick={() => {
+          closeAccount(currentAccount.id);
+          navigate("/clientarea");
+        }}
+      >
+        <CloseOutlined /> Close account
+      </ActionPanelElement>
+      <Flex
+        vertical
+        gap={"middle"}
+        style={{ marginTop: "1rem", paddingLeft: "2rem" }}
+      >
+        <EditableText size={1.75}>Transactions</EditableText>
+        <Divider style={{ marginTop: 0 }} />
+      </Flex>
+      {accountTransactions.length ? (
+        <RenderTransactions transactions={accountTransactions} />
+      ) : (
+        <Empty style={{ height: "100vh", marginTop: "10vh" }} />
+      )}
     </>
   );
 };

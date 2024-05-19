@@ -43,13 +43,14 @@ const useFetch = () => {
       const csrfToken = getCookie("csrftoken");
       const config: Config = {
         method,
-        credentials: includeCredentials ? "include" : "omit", // Conditionally include credentials
+        credentials: includeCredentials ? "include" : "omit",
         headers: {
           "Content-Type": "application/json",
           "X-CSRFToken": csrfToken,
           ...headers,
         },
       };
+
       if (data) {
         if (method !== "GET") {
           config.body = JSON.stringify(data);
@@ -81,7 +82,7 @@ const useFetch = () => {
       request<T>("POST", url, options),
     put: <T>(url: string, options?: FetchOptions<T>) =>
       request<T>("PUT", url, options),
-    delete: <T>(url: string, options?: FetchOptions<T>) =>
+    deleteRequest: <T>(url: string, options?: FetchOptions<T>) =>
       request<T>("DELETE", url, options),
     patch: <T>(url: string, options?: FetchOptions<T>) =>
       request<T>("PATCH", url, options),

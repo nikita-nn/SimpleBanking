@@ -18,7 +18,7 @@ const TransferMoney = () => {
   const { accounts, sendTransaction } = useAccounts();
   const [externalForm] = Form.useForm();
   const [progressBarState, setProgressBarState] = useState<number>(0);
-  const [isInternal, setIsInternal] = useState(false);
+  const [isInternal, setIsInternal] = useState(true);
   const changeProgressBar = (_: object, allValues: object) => {
     let filledFields = 0;
     Object.values(allValues).forEach((value) => {
@@ -67,7 +67,7 @@ const TransferMoney = () => {
             rules={[
               {
                 required: true,
-                message: "Please enter the recipient name",
+                message: "Please enter the recipient acct. number",
               },
             ]}
           >
@@ -79,7 +79,7 @@ const TransferMoney = () => {
                 }))}
               />
             ) : (
-              <Input placeholder="Recipient Name" />
+              <Input placeholder="Recipient account number" />
             )}
           </Form.Item>
           <Form.Item name={"from_account"} label={"From account:"} required>

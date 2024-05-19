@@ -8,6 +8,7 @@ export interface AccountsData {
   transactions: Transaction[];
   reloadAccounts: () => void;
   reloadTransactions: () => void;
+  closeAccount: (accountId: number) => void;
 }
 
 export interface Account {

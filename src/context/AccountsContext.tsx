@@ -16,7 +16,7 @@ export const AccountsContextProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const { get, post } = useFetch();
+  const { get, post, deleteRequest } = useFetch();
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [transactions, setTransactions] = useState<[]>([]);
 
@@ -34,6 +34,7 @@ export const AccountsContextProvider = ({
       setTransactions(response),
     );
   };
+
   const createAccount = (
     name: string,
     type: "checking" | "savings" | "loan" | "credit_card",
@@ -48,6 +49,13 @@ export const AccountsContextProvider = ({
       .then(reloadAccounts)
       .then(reloadTransactions);
   };
+
+  const closeAccount = (accountId: number) => {
+    deleteRequest(ApiUrl + `accounts/${accountId}/`)
+      .finally(reloadAccounts)
+      .finally(reloadTransactions);
+  };
+
   return (
     <AccountsContext.Provider
       value={{
@@ -57,6 +65,7 @@ export const AccountsContextProvider = ({
         sendTransaction,
         reloadAccounts,
         reloadTransactions,
+        closeAccount,
       }}
     >
       {children}

@@ -18,7 +18,7 @@ const LoginInput = styled(Input)`
 `;
 
 const StyledLink = styled(Button)`
-  font-size: 2vh;
+  font-size: 1.4rem;
   width: max-content;
 `;
 
@@ -56,11 +56,6 @@ const BaseCard = styled(Card)`
   padding: 0.6vh;
 `;
 
-const TransferButton = styled(Button)`
-  border-radius: 0.75rem;
-  width: 47%;
-`;
-
 const AccountStyles = styled.div`
   height: fit-content;
   border-radius: 0.4vh 0.8vh 0.8vh 0.4vh;
@@ -85,9 +80,7 @@ const LoginCard = styled(Card)`
   border-radius: 2.5rem;
 `;
 
-/*
 const ActionPanelElement = styled.div`
-  width: 20%;
   font-size: 1.25rem;
   height: 5vh;
   display: flex;
@@ -106,7 +99,6 @@ const ActionPanelElement = styled.div`
     background-color: lightgray;
   }
 `;
-*/
 const AccountViewPanel = styled.div`
   display: flex;
   flex-direction: column;
@@ -149,7 +141,7 @@ export {
   StyledLogo,
   LoginCard,
   StyledMainLayout,
-  TransferButton,
+  ActionPanelElement,
   EditableText,
   AccountStyles,
   ClientAreaCol,

@@ -3,7 +3,7 @@ import {
   BaseCard,
   EditableText,
 } from "../styles/renderComponents.ts";
-import { Flex } from "antd";
+import { Empty, Flex } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAccounts } from "../context/AccountsContext.tsx";
 import { Account } from "../context/AccountTypes.ts";
@@ -35,9 +35,13 @@ export const AccountsComponent = () => {
         <EditableText size={2} italic>
           Account Summary
         </EditableText>
-        {accounts.map((account) => (
-          <RenderAccount account={account} />
-        ))}
+        {accounts.length ? (
+          accounts.map((account) => (
+            <RenderAccount account={account} key={account.id} />
+          ))
+        ) : (
+          <Empty />
+        )}
       </Flex>
     </BaseCard>
   );
