@@ -18,12 +18,12 @@ const ClientAreaView = () => {
 
   return (
     <Row gutter={[16, 8]} style={{ padding: "3rem" }}>
-      <ClientAreaCol span={8} md={24} lg={12} xl={8}>
+      <ClientAreaCol span={8} md={24} lg={12} xl={7}>
         <BalanceCard />
         <ActionCard />
         <AccountsComponent />
       </ClientAreaCol>
-      <ClientAreaCol span={8} md={24} lg={12} xl={9}>
+      <ClientAreaCol span={8} md={24} lg={12} xl={10}>
         <TransactionHistory />
         <FinancialChart />
       </ClientAreaCol>{" "}

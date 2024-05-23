@@ -8,7 +8,7 @@ import {
   EditableText,
 } from "../styles/renderComponents.ts";
 import { useAccounts } from "../context/AccountsContext.tsx";
-import { Divider, Empty, Flex, Skeleton } from "antd";
+import { Empty, Skeleton } from "antd";
 import { RenderTransactions } from "../components/TransactionHistory.tsx";
 import { Transaction } from "../context/AccountTypes.ts";
 import { CloseOutlined } from "@ant-design/icons";
@@ -55,14 +55,6 @@ const AccountView = () => {
       >
         <CloseOutlined /> Close account
       </ActionPanelElement>
-      <Flex
-        vertical
-        gap={"middle"}
-        style={{ marginTop: "1rem", paddingLeft: "2rem" }}
-      >
-        <EditableText size={1.75}>Transactions</EditableText>
-        <Divider style={{ marginTop: 0 }} />
-      </Flex>
       {accountTransactions.length ? (
         <RenderTransactions transactions={accountTransactions} />
       ) : (

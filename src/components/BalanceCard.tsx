@@ -19,7 +19,7 @@ export const BalanceCard = () => {
 
   useEffect(() => {
     get<RatesResponse>(
-      "https://v6.exchangerate-api.com/v6/96996cbc4ebe9898742f9d8c/latest/USD",
+      "https://v6.exchangerate-api.com/v6/9b2f9dc2c238e90925475337/latest/USD",
       {
         includeCredentials: false,
       },

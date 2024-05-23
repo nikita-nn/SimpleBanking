@@ -11,9 +11,9 @@ const StyledMainLayout = styled(Layout)`
 
 const LoginInput = styled(Input)`
   border-radius: 1rem;
-  padding-top: 2vh;
-  padding-bottom: 0.5vh;
-  padding-left: 1.5vh;
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
   z-index: 1;
 `;
 
@@ -32,7 +32,7 @@ const LoginText = styled(Typography)`
 
 const LoginButton = styled(Button)`
   width: 100%;
-  height: 4vh;
+  height: 3rem;
   border-radius: 1rem;
   font-size: 1rem;
 `;
@@ -64,6 +64,7 @@ const AccountStyles = styled.div`
   transition: background-color 0.3s;
   padding: 0.35vh 0.35vh 0.35vh 0.65rem;
   cursor: pointer;
+  width: 90%;
   &:hover {
     background-color: rgba(225, 225, 225, 0.5);
   }
@@ -108,7 +109,7 @@ const AccountViewPanel = styled.div`
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
   background-color: black;
-  height: 20vh;
+  height: 12rem;
   width: 100%;
   .balance {
     align-items: center;

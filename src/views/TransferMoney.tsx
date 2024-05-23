@@ -58,7 +58,10 @@ const TransferMoney = () => {
                 { label: "Internal", value: true },
                 { label: "External", value: false },
               ]}
-              onChange={(value) => setIsInternal(value)}
+              onChange={(value) => {
+                externalForm.resetFields();
+                setIsInternal(value);
+              }}
             />
           </Form.Item>
           <Form.Item
@@ -104,7 +107,16 @@ const TransferMoney = () => {
           >
             <InputNumber placeholder="Amount" min={0} addonAfter={"$"} />
           </Form.Item>
-          <Form.Item name={"description"} label={"Comment:"}>
+          <Form.Item
+            name={"description"}
+            label={"Comment:"}
+            rules={[
+              {
+                max: 25,
+                message: "Description cannot be longer than 25 characters",
+              },
+            ]}
+          >
             <Input />
           </Form.Item>
           <Button type={"primary"} htmlType={"submit"}>
