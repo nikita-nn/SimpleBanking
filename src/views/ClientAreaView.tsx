@@ -17,21 +17,27 @@ const ClientAreaView = () => {
   }
 
   return (
-    <Row gutter={[16, 8]} style={{ padding: "3rem" }}>
-      <ClientAreaCol span={8} md={24} lg={12} xl={7}>
-        <BalanceCard />
-        <ActionCard />
-        <AccountsComponent />
-      </ClientAreaCol>
-      <ClientAreaCol span={8} md={24} lg={12} xl={10}>
-        <TransactionHistory />
-        <FinancialChart />
-      </ClientAreaCol>{" "}
-      <ClientAreaCol span={8} md={24} lg={12} xl={7}>
-        <TransferMoney />
-        <OpenAccount />
-      </ClientAreaCol>
-    </Row>
+    <>
+      <Row gutter={[16, 8]} style={{ padding: "3rem" }}>
+        <ClientAreaCol span={9} md={24} lg={12} xl={9}>
+          <BalanceCard />
+          <ActionCard />
+          <AccountsComponent />
+          <FinancialChart />
+        </ClientAreaCol>
+        <ClientAreaCol span={16} md={24} lg={12} xl={15}>
+          <TransactionHistory />
+          <Row gutter={[16, 8]}>
+            <ClientAreaCol span={12} md={24} lg={12} xl={12}>
+              <OpenAccount />
+            </ClientAreaCol>
+            <ClientAreaCol span={12} md={24} lg={12} xl={12}>
+              <TransferMoney />
+            </ClientAreaCol>
+          </Row>
+        </ClientAreaCol>
+      </Row>
+    </>
   );
 };
 
