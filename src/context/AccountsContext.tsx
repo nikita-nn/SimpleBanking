@@ -46,6 +46,7 @@ export const AccountsContextProvider = ({
 
   const sendTransaction = (transaction: SendTransaction) => {
     post(ApiUrl + "transactions/", { data: transaction })
+        .catch((e)=> alert(e))
       .then(reloadAccounts)
       .then(reloadTransactions);
   };
