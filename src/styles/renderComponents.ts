@@ -83,7 +83,7 @@ const LoginCard = styled(Card)`
 
 const ActionPanelElement = styled.div`
   font-size: 1.25rem;
-  height: 5vh;
+  height: 4rem;
   display: flex;
   align-items: center;
   gap: 0.5vh;

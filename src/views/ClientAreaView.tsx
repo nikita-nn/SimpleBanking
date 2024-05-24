@@ -23,18 +23,12 @@ const ClientAreaView = () => {
           <BalanceCard />
           <ActionCard />
           <AccountsComponent />
-          <FinancialChart />
+          <OpenAccount />
         </ClientAreaCol>
         <ClientAreaCol span={16} md={24} lg={12} xl={15}>
           <TransactionHistory />
-          <Row gutter={[16, 8]}>
-            <ClientAreaCol span={12} md={24} lg={12} xl={12}>
-              <OpenAccount />
-            </ClientAreaCol>
-            <ClientAreaCol span={12} md={24} lg={12} xl={12}>
-              <TransferMoney />
-            </ClientAreaCol>
-          </Row>
+          <TransferMoney />
+          <FinancialChart />
         </ClientAreaCol>
       </Row>
     </>
